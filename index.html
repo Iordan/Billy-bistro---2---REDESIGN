@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ресторант BILLY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+  <div class="logo">Бистро BILLY</div>
+  <ul>
+    <li><a href="#home">История</a></li>
+    <li><a href="#gallery">Галерия</a></li>
+    <li><a href="#contact">Как да ни откриете</a></li>
+  </ul>
+</nav>
+
+  <section id="home">
+  <div class="home-container">
+    <div class="home-text">
+      <h1>Добре дошли в Бистро BILLY</h1>
+      <p>
+        Намираме се в сърцето на Слънчев бряг и вече над 20 години събираме хора около масата с вкусна българска храна и усмивки. 
+        При нас ще откриете апетитни стекове, чеверме на дървени въглища и легендарна мешана скара, която ще ви накара да се върнете отново!
+      </p>
+    </div>
+    <div class="home-image">
+      <img src="images/barbeque.jpg" alt="BILLY restaurant" />
+    </div>
+  </div>
+  </section>
+
+  <section id="gallery" class="fade-in">
+    <h2>Галерия</h2>
+    <div class="gallery-grid">
+      <img src="images/pic1.jpg" alt="Menu Item 1" onclick="openLightbox(this)">
+      <img src="images/pic2.jpg" alt="Menu Item 2" onclick="openLightbox(this)">
+      <img src="images/pic3.jpg" alt="Menu Item 3" onclick="openLightbox(this)">
+      <img src="images/pic4.jpg" alt="Menu Item 4" onclick="openLightbox(this)">
+      <img src="images/pic5.jpg" alt="Menu Item 5" onclick="openLightbox(this)">
+      <img src="images/pic6.jpg" alt="Menu Item 6" onclick="openLightbox(this)">
+      <img src="images/pic7.jpg" alt="Menu Item 7" onclick="openLightbox(this)">
+      <img src="images/pic8.jpg" alt="Menu Item 8" onclick="openLightbox(this)">
+      <img src="images/pic9.jpg" alt="Menu Item 9" onclick="openLightbox(this)">
+      <img src="images/pic10.jpg" alt="Menu Item 10" onclick="openLightbox(this)">
+      <img src="images/pic11.jpg" alt="Menu Item 11" onclick="openLightbox(this)">
+      <img src="images/pic12.jpg" alt="Menu Item 12" onclick="openLightbox(this)">
+      <img src="images/pic13.jpg" alt="Menu Item 13" onclick="openLightbox(this)">
+      <img src="images/pic14.jpg" alt="Menu Item 14" onclick="openLightbox(this)">
+      <img src="images/pic15.jpg" alt="Menu Item 15" onclick="openLightbox(this)">
+      <img src="images/pic16.jpg" alt="Menu Item 16" onclick="openLightbox(this)">
+      <img src="images/pic17.jpg" alt="Menu Item 17" onclick="openLightbox(this)">
+    </div>
+  </section>
+
+  <section id="reservation" class="reservation fade-in">
+  <h2>Резервирай маса</h2>
+  <p>Попълни формата и ние ще се свържем с теб за потвърждение.</p>
+
+  <form action="https://formspree.io/f/mvgvkwor" method="POST" class="reservation-form">
+    <input type="text" name="name" placeholder="Име" required>
+    <input type="tel" name="phone" placeholder="Телефон" required>
+    <input type="number" name="people" placeholder="Брой хора" min="1" required>
+    <input type="date" name="date" required>
+    <input type="time" name="time" required>
+
+    <button type="submit">Изпрати заявка</button>
+  </form>
+
+  <p class="form-confirmation" style="display:none;">Благодарим! Заявката е изпратена успешно.</p>
+</section>
+
+<section id="testimonials" class="testimonials fade-in">
+  <h2>Какво казват нашите клиенти</h2>
+  <div class="testimonials-container">
+    <div class="testimonial">
+      <p>“Страхотна атмосфера и вкусна храна! Определено ще се върнем.”</p>
+      <h4>— Мария П.</h4>
+    </div>
+    <div class="testimonial">
+      <p>“Персоналът е много любезен, а менюто – разнообразно и свежо.”</p>
+      <h4>— Николай Г.</h4>
+    </div>
+    <div class="testimonial">
+      <p>“Най-доброто бистро в града! Препоръчвам горещо.”</p>
+      <h4>— Елена Д.</h4>
+    </div>
+  </div>
+</section>
+
+  <section id="contact">
+    <h2>Как да ни намерите</h2>
+    <p>Адрес - област Бургас к.к. Слънчев бряг срещу лунапарка, България</p>
+    <p>Можете да ни намерите чрез Google Maps или да ни посетите директно на място.</p>
+    <iframe src="https://www.google.com/maps?q=Slanchev+Bryag+8240+Sunny+Beach+Bistro+Billy,+Bulgaria&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Zoomed Image">
+</div>
+
+
+<!-- Footer -->
+  <footer>
+    <p>© 2025 Billy Bistro</p>
+  </footer>
+
+  <!-- Бутон "Обади се сега" -->
+  <a href="tel:+359888123456" class="call-now">Обади се сега</a>
+
+<!-- Script for reservation form and animations -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ===== Reservation Form Submission ===== */
+  const form = document.querySelector('.reservation-form');
+  const confirmation = document.querySelector('.form-confirmation');
+
+  if (form && confirmation) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          confirmation.style.display = 'block';
+          setTimeout(() => confirmation.classList.add('show'), 50); // плавна анимация
+          setTimeout(() => {
+            confirmation.classList.remove('show');
+            confirmation.style.display = 'none';
+          }, 4000); // скриване след 4 сек.
+        } else {
+          alert('Възникна грешка. Моля, опитайте отново.');
+        }
+
+      } catch (error) {
+        alert('Грешка при свързване със сървъра.');
+      }
+    });
+  }
+
+  /* ===== Fade-in on Scroll ===== */
+  const faders = document.querySelectorAll('.fade-in');
+
+  if (faders.length > 0) {
+    const appearOptions = { threshold: 0.2 };
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+  }
+
+});
+</script>
+
+<!-- Lightbox script -->
+<script>
+  function openLightbox(img) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = img.src;
+    lightbox.style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+</script>
+</body>
+</html>
